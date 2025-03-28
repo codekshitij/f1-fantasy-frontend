@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto&display=swap');
+
+
+.profile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark Tinted Background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+  
+  .profile-modal {
+    font-family: 'Doto', monospace;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 20px #00FFFF;
+  }
+  
+  .modal-title {
+    font-family: 'Doto', monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: rgba(0, 162, 255, 0.795);
+  }
+  
+  label {
+    font-family: 'Doto', monospace;
+    font-size: 1.1rem;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input, select {
+    font-family: 'Doto', monospace;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid rgba(0, 162, 255, 0.795);
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .save-btn {
+    background-color: rgba(0, 162, 255, 0.795);
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    margin-right: 5px;
+  }
+  
+  .cancel-btn {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    margin-left: 5px;
+  }
+  
+  .save-btn:hover {
+    background-color: rgba(0, 162, 255, 0.795);
+  }
+  
+  .cancel-btn:hover {
+    background-color: #666;
+  }
+  

@@ -1,0 +1,108 @@
+/* Background Video */
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux&display=swap');
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  /* Main Container */
+  .landing-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    color: white;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column; /* Stack text and buttons vertically */
+    align-items: flex-start; /* Align content to the left */
+    gap: 30px; /* Space between text and buttons */
+  }
+  
+  /* Hero Text (Title) */
+  .hero-text {
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: left;
+    font-family: 'Afacad Flux', sans-serif;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    margin-top: -200px;
+    background: rgba(0, 0, 0, 0.8);
+    display: inline-block;
+    border-radius: 10px;
+    padding: 10px 20px;
+  }
+  
+  /* Highlighted "Lights Out!" */
+  .hero-highlight {
+    color: red;
+  }
+  
+  /* Buttons */
+  /* Buttons Container (Now Side by Side) */
+  .buttons-container {
+    display: flex;
+    flex-direction: row; /* Keep buttons side by side */
+    gap: 20px; /* Space between buttons */
+    margin-top: 10px; /* Space between text and buttons */
+  }
+
+/* Buttons */
+.btn {
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  width: auto; /* Let buttons take their natural width */
+  text-align: center;
+  font-family: 'Doto', sans-serif;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+  
+  /* Button Colors */
+  .btn-red {
+    background-color: #dc2626;
+    color: white;
+  }
+  
+  .btn-red:hover {
+    background-color: #b91c1c;
+  }
+  
+  .btn-gray {
+    background-color: #374151;
+    color: white;
+  }
+  
+  .btn-gray:hover {
+    background-color: #1f2937;
+  }
+  
+  .btn-blue {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .btn-blue:hover {
+    background-color: #1d4ed8;
+  }
+  

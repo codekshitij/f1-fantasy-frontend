@@ -68,3 +68,96 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+🧩 Core Use Cases:
+
+1. User Authentication & Profile Management:
+   Sign Up:
+   Email and Password
+   Google OAuth
+   Login:
+   Email/Password
+   Google OAuth
+   Profile Management:
+   Update profile information (name, avatar, team name)
+   View fantasy points and ranking
+   Logout: Securely log out and clear session data
+
+2. Team Creation & Management:
+   Create a Fantasy Team:
+   Select drivers and constructors within a budget
+   Display player stats, prices, and team budget
+   Save and confirm team selections
+   Edit Team:
+   Make transfers (with limitations per race)
+   Use "Wildcards" for unlimited transfers
+   View Team:
+   See current team lineup and points earned
+   Display past performance and upcoming race predictions
+
+3. Race Prediction & Live Scoring:
+   Race Predictions:
+   Predict race winner, fastest lap, and podium finishes
+   Lock predictions before the race starts
+   Live Race Scoring:
+   Real-time points update during races
+   Points for race results, overtakes, and other strategic moves
+   Post-Race Summary:
+   Display race highlights and points earned
+   Compare predictions with actual race results
+
+4. Trade & Transfers:
+   Driver Transfers:
+   Limited transfers per race
+   Price adjustments based on driver performance
+   Wildcard System:
+   Use of "Wildcards" for unlimited transfers during a race week
+   Strategic usage to maximize points
+
+5. Leaderboards & Social Features:
+   Global Leaderboard:
+   View top players worldwide
+   Filter by race, season, or total points
+   Private Leagues:
+   Create or join private leagues with friends
+   Invite users via a unique code or link
+   League-specific leaderboards
+   Friends System:
+   Add and remove friends
+   Compare fantasy teams with friends
+
+6. Notifications & Alerts:
+   Race Notifications:
+   Alerts for race start times, driver transfers, and predictions lock
+   Point Updates:
+   Notification for live point updates during races
+   Summary of points after the race
+   Strategic Tips:
+   Suggestions for drivers to watch, upcoming track statistics, and more
+
+7. Admin Dashboard (Optional):
+   Manage user accounts and reports
+   Update driver and race data
+   Monitor system performance and manage notifications
+   🔥 Critical Success Factors:
+   Real-Time Updates:
+
+Using Ergast API for live race data
+WebSockets for live leaderboard updates
+User Engagement:
+
+Daily/Weekly challenges for bonus points
+Strategic gameplay with budget constraints and wildcards
+Scalable & Secure Backend:
+
+FastAPI with JWT/Firebase authentication
+PostgreSQL for scalable data management
+Sleek UI/UX:
+
+Engaging animations and transitions using Framer Motion
+Intuitive navigation and responsive design
+🔮 Future Enhancements:
+In-App Chat for private leagues
+Fantasy Points Analysis with historical data trends
+Race Highlights and Video Recaps
+Community Polls and User Discussions
