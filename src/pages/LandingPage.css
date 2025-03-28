@@ -10,17 +10,25 @@
     z-index: -1;
   }
   
-  /* Main Container */
-  .landing-container {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    color: white;
-  }
+ /* Add this if not already set */
+html, body {
+  height: auto;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix: Landing container should not be 100vh ONLY */
+.landing-container {
+  position: relative;
+  min-height: 100vh; /* Use min-height to allow content after */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  color: white;
+}
 
   .content {
     display: flex;
