@@ -1,0 +1,210 @@
+.create-team-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #16222A 0%, #3A6073 100%);
+  color: #ffffff;
+}
+
+.create-team-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #e10600;
+  border: 2px solid #e10600;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-btn:hover {
+  background: rgba(225, 6, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.back-btn .btn-icon {
+  font-size: 1rem;
+}
+
+.create-team-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.budget-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  backdrop-filter: blur(10px);
+}
+
+.budget-icon {
+  color: #e10600;
+}
+
+.error-message {
+  background: rgba(225, 6, 0, 0.1);
+  color: #ff9999;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(225, 6, 0, 0.3);
+}
+
+.selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.drivers-section, .constructors-section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.drivers-section h2, .constructors-section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.driver-card, .constructor-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.driver-card:hover, .constructor-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.driver-card.selected, .constructor-card.selected {
+  background: rgba(225, 6, 0, 0.2);
+  border-color: #e10600;
+}
+
+.driver-info, .constructor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.driver-name, .constructor-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.driver-team {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.driver-price, .constructor-price {
+  color: #e10600;
+  font-weight: bold;
+}
+
+.selected-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #e10600;
+  font-size: 1.2rem;
+}
+
+.constructors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.create-team-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #e10600 0%, #b30500 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(225, 6, 0, 0.3);
+}
+
+.submit-btn:disabled {
+  background: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .create-team-container {
+    padding: 1rem;
+  }
+
+  .create-team-header h1 {
+    font-size: 2rem;
+  }
+
+  .drivers-grid, .constructors-grid {
+    grid-template-columns: 1fr;
+  }
+}
+  

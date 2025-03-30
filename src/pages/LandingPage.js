@@ -2,11 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./LandingPage.css";
 import RaceTrack from "../components/RaceTrack";
+import { useNavigate } from "react-router-dom";
+
 
 const LandingPage = () => {
   const audioRef = useRef(null);
   const calendarRef = useRef(null); // 🔁 Ref to scroll
   const [races, setRaces] = useState([]);
+  const navigate = useNavigate();
+
+
+  const handleSignupClick = () => {
+    navigate('/signup'); // Navigate to the signup page
+  };
 
   useEffect(() => {
     const audioElement = audioRef.current;
@@ -20,6 +28,8 @@ const LandingPage = () => {
       document.addEventListener("click", playAudio, { once: true });
       document.addEventListener("touchstart", playAudio, { once: true });
       playAudio();
+
+  
     }
     return () => {
       if (audioElement) {
@@ -59,7 +69,7 @@ const LandingPage = () => {
           </h1>
 
           <div className="buttons-container">
-            <button className="btn btn-red">Sign Up</button>
+            <button className="btn btn-red" onClick={handleSignupClick}>Sign Up</button>
             <button className="btn btn-gray">View Leaderboard</button>
             <button className="btn btn-blue" onClick={scrollToCalendar}>
               View Race Calendar
