@@ -13,7 +13,11 @@ const LandingPage = () => {
 
 
   const handleSignupClick = () => {
-    navigate('/signup'); // Navigate to the signup page
+    navigate('/login'); // Navigate to the login page (handles both login and signup)
+  };
+
+  const handleLoginClick = () => {
+    navigate('/login'); // Navigate to the login page
   };
 
   useEffect(() => {
@@ -69,7 +73,8 @@ const LandingPage = () => {
           </h1>
 
           <div className="buttons-container">
-            <button className="btn btn-red" onClick={handleSignupClick}>Sign Up</button>
+            <button className="btn btn-red" onClick={handleLoginClick}>Login</button>
+            <button className="btn btn-green" onClick={handleSignupClick}>Sign Up</button>
             <button className="btn btn-gray">View Leaderboard</button>
             <button className="btn btn-blue" onClick={scrollToCalendar}>
               View Race Calendar

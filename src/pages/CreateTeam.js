@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import './CreateTeam.css';
@@ -39,6 +39,39 @@ const CreateTeam = () => {
   const [selectedConstructor, setSelectedConstructor] = useState(null);
   const [budget, setBudget] = useState(45.0);
   const [error, setError] = useState('');
+
+  // Check if user already has a team and redirect to dashboard
+  useEffect(() => {
+    const checkTeam = async () => {
+      if (!user) return;
+
+      try {
+        // First check if we already know the user has a team
+        if (user.team || user.fantasy_team_id) {
+          navigate('/dashboard');
+          return;
+        }
+
+        // If not, check with the server
+        const response = await axios.get('/fantasy/team/me');
+        if (response.status === 200) {
+          setUser({ ...user, team: response.data });
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        if (error.response?.status !== 404) {
+          console.error('Error checking team:', error);
+          if (error.response?.status === 401) {
+            navigate('/login');
+          }
+        }
+      }
+    };
+    
+    checkTeam();
+  }, [user, setUser, navigate]);
+
+
 
   const calculateRemainingBudget = () => {
     const driversCost = selectedDrivers.reduce((sum, driver) => sum + driver.price, 0);
@@ -98,12 +131,16 @@ const CreateTeam = () => {
 
       if (response.status === 200 || response.status === 201) {
         // ✅ Update user context to reflect team is created
-        setUser({ ...user, team: 'created' });
+        setUser({ ...user, team: response.data });
         navigate('/dashboard');
       }
     } catch (error) {
-      setError('Error creating team. Please try again.');
-      console.error('Error:', error);
+      if (error.response?.status === 401) {
+        navigate('/login');
+      } else {
+        setError(error.response?.data?.detail || 'Error creating team. Please try again.');
+        console.error('Error:', error);
+      }
     }
   };
 

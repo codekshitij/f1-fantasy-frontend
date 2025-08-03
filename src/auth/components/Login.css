@@ -159,6 +159,33 @@
   font-size: 0.9rem;
 }
 
+/* Loading Screen */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  color: white;
+}
+
+.loading-spinner {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: spin 2s linear infinite;
+}
+
+.loading-screen p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @media (max-width: 480px) {
   .login-form-container {
     padding: 1.5rem;
@@ -166,5 +193,13 @@
 
   .login-title {
     font-size: 1.75rem;
+  }
+  
+  .loading-spinner {
+    font-size: 3rem;
+  }
+  
+  .loading-screen p {
+    font-size: 1rem;
   }
 }

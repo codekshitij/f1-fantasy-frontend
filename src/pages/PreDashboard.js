@@ -7,12 +7,34 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const PreDashboard = () => {
-  const { logout } = useAuth();
+  const { user, logout, login } = useAuth();
   const navigate = useNavigate();
   const [races, setRaces] = useState([]);
   const [driverStandings, setDriverStandings] = useState([]);
   const [constructorStandings, setConstructorStandings] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Check if user has a team
+  useEffect(() => {
+    const checkTeam = async () => {
+      try {
+        const response = await axios.get('/fantasy/team/me');
+        if (response.status === 200) {
+          // Update user context with team data
+          await login({ ...user, team: response.data });
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        if (error.response?.status !== 404) {
+          console.error('Error checking team:', error);
+        }
+      }
+    };
+
+    if (user) {
+      checkTeam();
+    }
+  }, [user, login, navigate]);
 
   const handleLogout = () => {
     logout();
@@ -147,7 +169,7 @@ const PreDashboard = () => {
       </div>
 
       <div className="dashboard-actions">
-        <button className="primary-btn">Choose Your Team</button>
+        <button className="primary-btn" onClick={() => navigate('/create-team')}>Choose Your Team</button>
         <button className="secondary-btn">View Full Calendar</button>
       </div>
     </div>

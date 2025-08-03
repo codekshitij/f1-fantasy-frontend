@@ -96,6 +96,15 @@ html, body {
     background-color: #b91c1c;
   }
   
+  .btn-green {
+    background-color: #16a34a;
+    color: white;
+  }
+  
+  .btn-green:hover {
+    background-color: #15803d;
+  }
+  
   .btn-gray {
     background-color: #374151;
     color: white;

@@ -12,7 +12,7 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,8 +28,7 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      localStorage.removeItem("access_token");
     }
     return Promise.reject(error);
   }

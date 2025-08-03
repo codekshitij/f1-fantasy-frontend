@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection - users can read/write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Fantasy teams collection - users can read/write their own teams
+    match /fantasyTeams/{teamId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || 
+         request.auth.uid == request.resource.data.userId);
+    }
+    
+    // Fantasy points collection - read only for authenticated users
+    match /fantasyPoints/{pointId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only allow server-side writes for now
+    }
+    
+    // Drivers collection - read only for authenticated users
+    match /drivers/{driverId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only allow server-side writes
+    }
+    
+    // Races collection - read only for authenticated users  
+    match /races/{raceId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only allow server-side writes
+    }
+    
+    // Leaderboard collection - read only for authenticated users
+    match /leaderboard/{leaderboardId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only allow server-side writes
+    }
+  }
+}

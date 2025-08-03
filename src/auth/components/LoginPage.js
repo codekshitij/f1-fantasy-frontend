@@ -1,45 +1,67 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
+import { firestoreService } from "../services/firebaseAuth";
 import "./LoginPage.css";
-import { auth, googleProvider } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
 
-const LoginPage = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { user, login } = useAuth();
+
+  // Use the main auth hook for complete state management
+  const { user, login: authLogin } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      if (!user.profile_completed) {
-        navigate("/signup", { replace: true });
-      } else if (!user.team) {
-        navigate("/create-team", { replace: true });
-      } else {
-        navigate("/", { replace: true });
+    const checkUserAndRedirect = async () => {
+      if (user) {
+        console.log('🔍 Checking user profile and teams...');
+        
+        if (!user.firestoreUser?.profileCompleted) {
+          console.log('📝 Profile not completed, redirecting to complete profile');
+          navigate("/complete-profile", { replace: true });
+          return;
+        }
+
+        try {
+          // Check if user has fantasy teams using Firestore
+          const teams = await firestoreService.getUserTeams(user.uid);
+          console.log('🏎️ User teams:', teams);
+          
+          if (teams.length > 0) {
+            console.log('✅ User has teams, redirecting to dashboard');
+            navigate("/dashboard", { replace: true });
+          } else {
+            console.log('➕ No teams found, redirecting to create team');
+            navigate("/create-team", { replace: true });
+          }
+        } catch (error) {
+          console.error('❌ Error checking teams:', error);
+          navigate("/dashboard", { replace: true });
+        }
       }
-    }
+    };
+
+    checkUserAndRedirect();
   }, [user, navigate]);
 
-  const handleLogin = async (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { email, password });
-      const userData = response.data;
-      localStorage.setItem("access_token", userData.access_token);
-      await login(userData.user);
+      console.log('📧 Attempting email login...');
+      // Use the auth context login method with email credentials
+      await authLogin("email", { email, password });
+      // Navigation will be handled by the useEffect above
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid credentials");
+      console.error('❌ Email login failed:', err);
+      setError(err.message || "Invalid credentials");
     } finally {
       setIsLoading(false);
     }
@@ -49,41 +71,31 @@ const LoginPage = () => {
     try {
       setIsLoading(true);
       setError("");
-      
-      // Sign in with Google using Firebase
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      
-      // Get the ID token
-      const idToken = await user.getIdToken();
 
-      // Send the token to your backend using our configured axios instance
-      const response = await axios.post("/auth/google-login", { token: idToken });
-
-      if (!response.data.access_token) {
-        throw new Error("No access token received from backend");
-      }
-
-      // Store access token
-      localStorage.setItem("access_token", response.data.access_token);
-      
-      if (!response.data.user) {
-        throw new Error("No user data received from backend");
-      }
-
-      // Update auth context with user data
-      await login(response.data.user);
-      
+      console.log('🔐 Attempting Google login...');
+      // Use the auth context login method for Google
+      await authLogin("google");
+      // Navigation will be handled by the useEffect above
     } catch (err) {
-      console.error("Google login error:", err);
-      setError(err.response?.data?.detail || err.message || "An error occurred during login");
+      console.error('❌ Google login failed:', err);
+      setError(err.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
   };
 
+  // If user is already authenticated, show loading
+  if (user) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner">🏎️</div>
+        <p>Redirecting...</p>
+      </div>
+    );
+  }
+
   return (
-    <div 
+    <div
       className="login-container"
       style={{
         backgroundImage: `url("/images/F1.png")`,
@@ -93,7 +105,7 @@ const LoginPage = () => {
         <h2 className="login-title">Welcome Back</h2>
         {error && <p className="error-message">{error}</p>}
 
-        <form className="login-form" onSubmit={handleLogin}>
+        <form className="login-form" onSubmit={handleEmailLogin}>
           <div className="form-group">
             <label>Email:</label>
             <input
@@ -124,18 +136,14 @@ const LoginPage = () => {
             </Link>
           </div>
 
-          <button 
-            type="submit" 
-            className="login-btn"
-            disabled={isLoading}
-          >
+          <button type="submit" className="login-btn" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         <hr className="divider" />
 
-        <button 
+        <button
           className="google-btn"
           onClick={handleGoogleLogin}
           disabled={isLoading}
@@ -155,4 +163,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
